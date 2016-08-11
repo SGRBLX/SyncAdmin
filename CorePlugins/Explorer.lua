@@ -26,7 +26,9 @@ command.Run = function(main,user,users,...)
 		table.insert(list,player.Name)
 		local char = player.Character
 		script.Explorer:clone().Parent = player.PlayerGui
-		CoreAPI.GoogleAnalytics.ReportEvent("PlaceId-" .. tostring(game.PlaceId), "[Explorer Core Plugin Used]", "[Core Plugin Information]",1)
+		if main.Settings.AllowDataReporting then
+			CoreAPI.GoogleAnalytics.ReportEvent("PlaceId-" .. tostring(game.PlaceId), "[Explorer Core Plugin Used]", "[Core Plugin Information]",1)
+		end
 		if workspace.FilteringEnabled then
 			SyncAPI.DisplayMessage(player,"Notice","Changes on the explorer will not replicate to the server since filtering is currently enabled on this server.")
 		end

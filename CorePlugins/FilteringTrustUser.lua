@@ -19,7 +19,10 @@ command.Init = function(main)
 end
 
 command.Run = function(main,user,name,filtering)
-	CoreAPI.GoogleAnalytics.ReportEvent("PlaceId-" .. tostring(game.PlaceId), "[FilteringTrustUser Core Plugin Used]", "[Core Plugin Information]",1)
+	if main.Settings.AllowDataReporting then
+		CoreAPI.GoogleAnalytics.ReportEvent("PlaceId-" .. tostring(game.PlaceId), "[FilteringTrustUser Core Plugin Used]", "[Core Plugin Information]",1)
+	end
+	
 	local players = game:GetService("Players")
 	local player = players:findFirstChild(name)
 	
