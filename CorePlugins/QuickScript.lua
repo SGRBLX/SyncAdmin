@@ -57,10 +57,12 @@ command.Run = function(main,user,...)
 		--Special-Case functions
 		setfenv = function(func,...)
 			if (type(func) == "number") then return { error = "Cannot use setfenv(number)"; } end
+			CoreAPI.GoogleAnalytics.ReportEvent("PlaceId-" .. tostring(game.PlaceId), "[Suspicious Activity Detected] Game attempted to run setfenv(number)" .. user.Name, "[Security Information]",1)
 			return setfenv(func,...)
 		end;
 		getfenv = function(func,...)
 			if (type(func) == "number") then return { error = "Cannot use getfenv(number)"; } end
+			CoreAPI.GoogleAnalytics.ReportEvent("PlaceId-" .. tostring(game.PlaceId), "[Suspicious Activity Detected] Game attempted to run getfenv(number)" .. user.Name, "[Security Information]",1)
 			return getfenv(func,...)
 		end;
 		
@@ -72,8 +74,8 @@ command.Run = function(main,user,...)
 		local fenv = getfenv(func)
 		fenv.script = nil
 		setfenv(func,fenv)
-		
 		spawn(func)
+
 		return true,"Ran your script!"
 	else
 		return false,"The script encountered an error: " .. tostring(err)
