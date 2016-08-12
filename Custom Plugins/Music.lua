@@ -2,7 +2,6 @@
 --      @Description: Synchronized Admin Commands // Core Command Plugins
 --      @Author: VolcanoINC, DataSynchronized
 --      @Date of Creation: 26th, September, 2015
---		@Updated: 30th, September, 2015
 
 local command = {}
 command.PermissionLevel = 1 -- Allow only admin or higher to run (0: Everyone; 1: Admin; 2: Superadmin 3: Root)
