@@ -15,7 +15,6 @@ command.Usage = "systemmmessage Player1,Player2,Player3,... Your text here"
 command.Description = [[Displays the given message to the given players anonymously.]] 
 
 --// Now to the actual command
-local rstore = game:GetService("ReplicatedStorage")
 command.Init = function(main)
 end
 
