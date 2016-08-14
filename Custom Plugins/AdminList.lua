@@ -11,9 +11,11 @@ command.Init = function(main)
 end
 
 command.Run = function(main,user)
-	local message = "Staff List\n"
+	local message = "Moderator List\n"
 	for a,b in pairs(SyncAPI.GetModeratorList()) do message = message .. a .. ": " .. b .. "\n" end
+	message = message .. "\nAdministrator List\n"
 	for a,b in pairs(SyncAPI.GetAdminList()) do message = message .. a .. ": " .. b .. "\n" end
+	message = message .. "\nSuper Administrator List\n"
 	for a,b in pairs(SyncAPI.GetSuperAdminList()) do message = message .. a .. ": " .. b .. "\n" end
 	local list = {}
 	SyncAPI.DisplayScrollMessage(user,"ADMIN LIST",message)
