@@ -6,7 +6,6 @@ command.Usage = "adminlist"
 command.Description = [[Display the admin list.]] 
 
 --// Now to the actual command
-local rstore = game:GetService("ReplicatedStorage")
 command.Init = function(main)
 end
 
