@@ -10,7 +10,7 @@
 local command = {}
 command.PermissionLevel = 1
 command.Shorthand = {"deltools","cleartools"}
-command.Params = {"PlayerList",}
+command.Params = {"PlayerList"}
 command.Usage = "removetools Player"
 command.Description = [[Removes tools from the selelcted players]] 
 
