@@ -3,7 +3,7 @@
 									Verified SyncAdmin Command
 	======================================================================================
 	Authors 				Hannah Jane [DataSynchronized], Dominik [VolcanoINC]
-	Description				Removes tools from the selected player.
+	Description				Views tools from the selected player.
 	--------------------------------------------------------------------------------------
 --]]
 
