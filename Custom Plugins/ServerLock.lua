@@ -12,11 +12,13 @@ command.Init = function(main)
 	local players = game:GetService("Players")
 	players.PlayerAdded:connect(function(p)
 		wait(1)
-		if (SyncAPI.GetPermissionLevel(p) <= 0 and locked) then
-			if (reason == "") then
-				p:Kick("The server is locked")
-			else
-				p:Kick("The server is locked for reason: " .. reason)
+		if locked == true then
+			if (SyncAPI.GetPermissionLevel(p) <= 0) then
+				if (reason == "") then
+					p:Kick("The server is locked")
+				else
+					p:Kick("The server is locked for reason: " .. reason)
+				end
 			end
 		end
 	end)
