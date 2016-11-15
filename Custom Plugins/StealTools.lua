@@ -1,5 +1,5 @@
 --[[
-									Verified SyncAdmin Command
+					Verified SyncAdmin Command
 	======================================================================================
 	Authors 				Sam [Spearritt]
 	Description				Steal the tools of a target player
