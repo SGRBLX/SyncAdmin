@@ -1,6 +1,6 @@
 
 --      @Description: Synchronized Admin Plugin
---      @Author: DataSynchronized, VolcanoINC
+--      @Author: skeletonarcher12
 --		@Note: Check API documentation for more information regarding this.
 
 local command = {}
