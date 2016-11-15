@@ -2,38 +2,24 @@
 --[[
 									Verified SyncAdmin Command
 	======================================================================================
-	Authors 				Hannah Jane [DataSynchronized], Dominik [VolcanoINC]
+	Authors 				Hannah Jane [DataSynchronized], Dominik [VolcanoINC], Spearritt(Hierarchy update)
 	Description				Ban users from the game
 	--------------------------------------------------------------------------------------
 --]]
 
 local command = {}
-command.PermissionLevel = 1
+command.PermissionLevel = 2
 command.Shorthand = nil
 command.Params = {"SafePlayer","..."}
 command.Usage = "ban Player Reason"
-command.Description = [[Bans the player and displays the reason in the initial
-kick message.]] 
-
---// Implement string split function
-function strSplit(inputstr,sep)
-	local t,i = {},1
-	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-		t[i] = str
-		i = i + 1
-	end
-	return t
-end
+command.Description = [[Bans the player and displays the reason in the initial kick message.]] 
 
 --// Now to the actual command
-command.Init = function(main)
-	if (main:findFirstChild("Settings") == nil or main.Settings:findFirstChild("Banned") == nil) then return end
-	
-	local banned = main.Settings.Banned
+command.Init = function(main)	
 	local players = game:GetService("Players")
 	players.PlayerAdded:connect(function(player)
-		for _,ban in pairs(banned:children()) do
-			if (ban.Name == player.Name or ban.Value == player.UserId) then
+		for _,ban in pairs(SyncSettings.Banned) do
+			if (ban.Username == player.Name or ban.UserId == player.UserId) then
 				player:Kick("You are banned from this server.") --// I've been here before.
 				SyncAPI.DisplayNotification(player,"Player " .. player.Name .. " tried to join but is banned",5)
 			end
@@ -42,19 +28,17 @@ command.Init = function(main)
 end
 
 command.Run = function(main,user,player,...)
-	if (user == nil) then error("No user found") end	
-	local reason = table.concat({...}," ")
-	local list = {}
+	if (SyncAPI.GetPermissionLevel(user) > SyncAPI.GetPermissionLevel(player)) then
+		if (user == nil) then error("No user found") end	
+		local reason = table.concat({...}," ")
+		
+		table.insert(SyncSettings.Banned,{ Username = player.Name; UserId = player.UserId; })
+		player:Kick(reason)
+		return true,"Banned user " .. player.Name .. " for reason '" .. reason .. "'"
+	else
+		return false,"You cannot run this command on someone with a higher permission level than you."
+	end
 	
-	if (main:findFirstChild("Settings") == nil or main.Settings:findFirstChild("Banned") == nil) then return false,"Settings.Banned not found" end
-	
-	local v = Instance.new("IntValue")
-	v.Name = player.Name
-	v.Value = player.UserId
-	v.Parent = main.Settings.Banned
-	player:Kick(reason)
-	
-	return true,"Banned user " .. player.Name .. " for reason '" .. reason .. "'"
 end
 
 return command

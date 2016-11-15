@@ -34,12 +34,12 @@ command.Run = function(main,user,users,reason)
 		return false,"No users specified"
 	else
 		local count = 0
-		if (main:findFirstChild("Settings") == nil or main.Settings:findFirstChild("Banned") == nil) then return false,"Settings.Banned not found" end
-		local playerssvc = main.Settings.Banned:children()
+		
+		local playerssvc = SyncSettings.Banned
 		for _,playername in pairs(strSplit(users:lower(),",")) do
-			for _,player in pairs(playerssvc) do
-				if (string.find(player.Name:lower(),playername) == 1) then
-					player:Destroy()
+			for index,player in pairs(playerssvc) do
+				if (string.find(player.Username:lower(),playername) == 1) then
+					table.remove(playerssvc,index)
 					count = count + 1
 				end
 			end
