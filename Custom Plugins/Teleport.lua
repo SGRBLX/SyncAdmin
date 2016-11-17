@@ -9,8 +9,8 @@
 
 local command = {}
 command.PermissionLevel = 1
-command.Shorthand = "tp"
-command.Params = {"PlayerList","Player"}
+command.Shorthand = {"tp","to"}
+command.Params = {"PlayerList","Optional:Player"}
 command.Usage = "teleport Player1,Player2,Player3,... Target"
 command.Description = [[Teleports all specified users to the target user.]] 
 
@@ -18,11 +18,20 @@ command.Description = [[Teleports all specified users to the target user.]]
 command.Init = function(main)
 end
 
-command.Run = function(main,user,users,target)	
+command.Run = function(main,user,users,target)
+	if (target == nil) then
+		if (#users < 1) then
+			return false,"No target given"
+		end
+		target = users[1]
+		users = {user}
+	end
+	
 	if (target.Character and target.Character:findFirstChild("HumanoidRootPart") and target.Character.HumanoidRootPart:IsA("BasePart")) then
 		local list = {}
 		for _,player in pairs(users) do
 			if (player.Character and player.Character:findFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart:IsA("BasePart")) then
+				player.Character.HumanoidRootPart.Velocity = Vector3.new()
 				player.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
 			end
 			table.insert(list,player.Name)
