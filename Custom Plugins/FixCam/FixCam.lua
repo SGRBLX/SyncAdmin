@@ -1,8 +1,11 @@
 --[[
-                                    un-Verified SyncAdmin Command
+                                    Verified SyncAdmin Command
     ======================================================================================
     Authors                 Dark_Messiah
     Description             Resets the Player's CurrentCamera to default
+	
+	Note:					Please test things before you submit things. This is not
+							a contest on who can send the best drunk text message. Thanks!
     --------------------------------------------------------------------------------------
 --]]
 
@@ -13,21 +16,24 @@ command.Params = {}
 command.Usage = "fixcam"
 command.Description = [[Resets the Player's CurrentCamera to default]] 
 
---// Now to the actual command
 command.Init = function(main)
 end
 
 command.Run = function(main,user)
-	local cameraResetLocalScript = script:FindFirstChild("LocalShortWolf") -- Find cameraResetLocalScript
+	if user == nil then
+		return false,"No user was found"
+	end
+	
+	local cameraResetLocalScript = script:FindFirstChild("FixCam") -- Find cameraResetLocalScript
 	
 	if cameraResetLocalScript ~= nil then
 		cameraResetLocalScript = cameraResetLocalScript:Clone() -- Make a copy of cameraResetLocalScript
 		cameraResetLocalScript.Parent = user.PlayerGui
-		cameraResetLocalScript.Disabled = true
-		cameraResetLocalScript.Disabnled = false
+		cameraResetLocalScript.Disabled = false
+		
 		return true,user.Name.."'s Camera has been reset"
 	else
-		return false,"FixCam's Dependency is missing"
+		return false,"FixCam Dependency is missing"
 	end
 end
 
